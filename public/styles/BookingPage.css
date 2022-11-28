@@ -1,0 +1,186 @@
+body {
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  min-height: 100vh;
+  position: relative;
+}
+.home__header {
+  background-color: red;
+  height: 90px;
+  width: 100%;
+  background-color: white;
+  border-bottom: 0.5px solid rgb(209, 197, 197);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 50px;
+  color: black;
+  position: sticky;
+  top: 0px;
+  z-index: 2;
+  margin-right: 20px;
+}
+/* header logo */
+.header__logo {
+  align-self: flex-start;
+  height: 85%;
+  width: 125px;
+  flex-basis: 1;
+}
+a {
+  color: black;
+  font-weight: 500;
+  text-decoration: none;
+}
+button {
+  outline: none;
+  background-color: white;
+  border: none;
+}
+/* main */
+.main {
+  min-height: 100px;
+  padding: 30px 75px;
+  width: 100%;
+}
+.main__back {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  width: 100%;
+  gap: 20px;
+}
+.main__back > a {
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: black;
+}
+.main__back > a:hover {
+  background-color: lightgray;
+}
+.main__main {
+  display: flex;
+  gap: 100px;
+  padding: 20px 75px;
+}
+.main__left {
+  width: 40%;
+}
+.main__your--trip {
+  border-bottom: 1px solid lightgray;
+}
+.main__right {
+  padding: 20px 30px;
+  width: 40%;
+  min-height: 100px;
+  border-radius: 10px;
+  margin-right: 30px;
+  border: 1px solid lightgray;
+}
+.right__img {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  border-bottom: 1px solid lightgrey;
+  padding: 10px 0px;
+}
+.right__img > img {
+  width: 150px;
+  height: 100%;
+  border-radius: 10px;
+}
+.right__booking__protection {
+  border-bottom: 1px solid lightgray;
+  padding: 10px 0px;
+}
+.right__price__details {
+  border-bottom: 1px solid lightgray;
+}
+.price__details__item,
+.right__price__total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.main__confirm__pay {
+  height: 50px;
+  padding: 10px;
+}
+.main__confirm__pay > p {
+  font-size: 25px;
+}
+.main__confirm__pay > button {
+  height: 100%;
+  width: 100%;
+  background-color: #ff385c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+/* booking confirmed */
+.booking__confirmed {
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.534);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.booking__confirmed > h1,
+span {
+  color: white;
+}
+.modal--closed {
+  display: none;
+}
+/* footer */
+.home__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 50px;
+  height: 50px;
+  color: black;
+  background-color: white;
+  border-top: 0.5px solid rgb(209, 197, 197);
+  z-index: 2;
+  width: 100%;
+}
+
+.footer__left,
+.footer__right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.footer__right {
+  margin-right: 150px;
+}
+.footer__left--item,
+.footer__right--item {
+  height: 100%;
+  font-weight: 300;
+  padding: 5px 0px;
+  border-bottom: 2px solid white;
+  color: black;
+}
+.footer__right--item.default {
+  border-bottom: 2px solid black;
+}
+.footer__left--item:hover,
+.footer__right--item:hover {
+  cursor: pointer;
+  border-bottom: 2px solid black;
+}

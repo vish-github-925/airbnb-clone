@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google font icons link -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+
+    <!-- Linking CSS of HomePage -->
+    <link rel="stylesheet" href="./styles/HomePage.css" />
+    <!-- Linking Javascript of HomePage -->
+    <script src="./scripts/HomePage.js" defer></script>
+
+    <title>Holiday Homes & Apartment Rentals - Airbnb - Airbnb</title>
+  </head>
+  <body>
+    <!-- header -->
+    <header class="home__header">
+      <a href="/">
+        <img
+          src="./images/airbnb-logo.png"
+          class="header__logo"
+          alt="Airbnb logo"
+        />
+      </a>
+      <div class="header__search">
+        <button class="anywhere text_bold">Anywhere</button>
+        <button class="anyweek text_bold">Anyweek</button>
+        <button class="guests">Add guests</button>
+        <div class="search__box">
+          <span class="material-symbols-outlined"> search </span>
+        </div>
+      </div>
+
+      <div class="header__options">
+        <a href="/host/homes" class="header__options--make-airbnb-your-home"
+          >Airbnb your home</a
+        >
+        <button class="header__options--language-preference">
+          <span class="material-symbols-outlined icon-language">
+            language
+          </span>
+        </button>
+        <button class="header__options--auth">
+          <span class="material-symbols-outlined"> menu </span>
+          <span class="material-symbols-outlined"> account_circle </span>
+        </button>
+        <% if(!data?.username) {%>
+        <div class="header__options--auth-more-options auth--closed">
+          <div class="auth-more-options__top">
+            <button class="text_bold sign-up">Sign Up</button>
+            <button class="login">Login</button>
+            <div></div>
+          </div>
+          <div class="auth-more-options__bottom">
+            <button><a href="/host/homes">Airbnb your home</a></button>
+            <button><a href="/host/experience">Host an experience</a></button>
+            <button><a href="/help">Help</a></button>
+          </div>
+        </div>
+        <% } else { %>
+        <div class="header__options--auth-more-options auth--closed">
+          <div class="auth-more-options__top">
+            <button class="text_bold">Messages</button>
+            <button class="text_bold">Notificaions</button>
+            <button class="text_bold">Trips</button>
+            <button class="text_bold">WishList</button>
+          </div>
+          <div class="auth-more-options__bottom">
+            <button><a href="/host/homes">Airbnb your home</a></button>
+            <button><a href="/host/experience">Host an experience</a></button>
+            <button><a href="#">Account</a></button>
+          </div>
+          <div class="auth-more-options__bottom">
+            <button><a href="/help">Help</a></button>
+            <button><a href="/auth/logout">Logout</a></button>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </header>
+
+    <!-- login signup modal backdrop-->
+    <section class="login-signup__modal__backdrop modal--closed">
+      <!-- login signup modal -->
+      <div class="login-signup__modal">
+        <!-- login signup modal header -->
+        <div class="login-signup__modal--header">
+          <button class="close--modal">
+            <span class="material-symbols-outlined icon-close"> close </span>
+          </button>
+          <h2 class="modal--header__heading">Log in or sign up</h2>
+        </div>
+        <!-- login form -->
+        <form
+          class="login-signup__form login"
+          method="post"
+          action="/auth/login"
+        >
+          <h2 style="text-align: center;">Welcome to Airbnb</h2>
+          <input type="email" placeholder="Enter your email" name="username" />
+          <input
+            type="password"
+            placeholder="Enter your password"
+            name="password"
+          />         
+          <button type="submit" class="login-signup__form--submit--primary">
+            Continue
+          </button>
+          <% if(data) {%>
+          <p><%= data.error %></p>
+          <% } %>
+        </form>
+        <!-- Sign up form -->
+        <form
+          class="login-signup__form signup login-signup__form--disabled"
+          method="post"
+          action="/auth/signup"
+        >
+          <h2>Welcome to Airbnb</h2>
+          <input type="email" placeholder="Enter your email" name="username" />
+          <input
+            type="password"
+            placeholder="Enter your password"
+            name="password"
+          />
+          <input
+            type="text"
+            placeholder="Confirm your password"
+            name="password2"
+          />
+          <button type="submit" class="login-signup__form--submit--primary">
+            Continue
+          </button>
+          <% if(data) {%>
+          <p><%= data.error %></p>
+          <% } %>
+        </form>
+      </div>
+    </section>
+    <!-- filters section -->
+    <section class="home__filters">
+      <% for(let i = 0; i < data.filters.length; i++) {%>
+      <a
+        class="home__filter filter--selected"
+        href="/?filter=<%=data.filters[i].toLowerCase().replace(" ","_") %> "
+      >
+        <span class="material-symbols-outlined"> <%= data.icons[i] %> </span>
+        <p><%= data.filters[i] %></p>
+      </a>
+      <% } %>
+    </section>
+    <!-- main section -->
+    <main class="home__main">
+      <% if(data?.error) { %>
+      <h2><%= data.error %></h2>
+      <% } %> <% if(data?.rooms) {%>
+      <!-- All rooms section -->
+      <section class="home__rooms">
+        <% data.rooms.forEach(room => { %>
+        <!-- Each room display and link -->
+        <a href="/rooms/<%=room._id %> " class="home__room" target="_blank">
+          <img
+            src="<%= room.images.picture_url %>"
+            class="home__room--img"
+            alt="Room Image"
+          />
+          <div class="home__room--details">
+            <div class="room__location__rating">
+              <p class="text_bold"><%= room.address.street %></p>
+              <div>
+                <span class="material-symbols-outlined icon-star"> star </span>
+
+                <% if(room.review_scores?.review_scores_rating){ %>
+                <span>
+                  <%= room.review_scores.review_scores_rating / 20 %>
+                </span>
+                <% } else { %>
+                <span> New </span>
+                <% } %>
+              </div>
+            </div>
+            <p class="text_bold"><%= room.name %></p>
+            <p><%=
+            new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'INR',
+  minimumFractionDigits: 2
+}).format(room.price * 82)
+              %> <span class="text_bold">night</span> </p>
+          </div>
+        </a>
+        <% })} %>
+      </section>
+    </main>
+    <!-- footer section -->
+    <footer class="home__footer">
+      <div class="footer__left">
+        <p>&copy; 2022 Airbnb,Inc.</p>
+        <span>&middot;</span>
+        <a class="footer__left--item" href="/privacy">Privacy</a>
+        <span>&middot;</span>
+
+        <a class="footer__left--item" href="/terms">Terms</a>
+        <span>&middot;</span>
+
+        <a class="footer__left--item" href="/sitemaps">Sitemaps</a>
+        <span>&middot;</span>
+
+        <a class="footer__left--item" href="/about/company-details"
+          >Company Details</a
+        >
+        <span>&middot;</span>
+
+        <button class="footer__left--item">Destinations</button>
+      </div>
+      <div class="footer__right">
+        <button class="footer__right--item">English (IN)</button>
+        <button class="footer__right--item">INR</button>
+        <button class="footer__right--item default">Support & Resources</button>
+      </div>
+    </footer>
+  </body>
+</html>

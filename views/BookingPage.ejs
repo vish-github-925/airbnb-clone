@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirm and Pay</title>
+
+    <!-- linking Booking page css -->
+    <link rel="stylesheet" href="../styles/BookingPage.css" />
+    <!-- linking Booking page js -->
+    <script src="../scripts/BookingPage.js" defer></script>
+
+    <!-- Google font icons link -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+  </head>
+  <body>
+    <!-- header -->
+    <header class="home__header">
+      <a href="/">
+        <img
+          src="../../images/airbnb-logo.png"
+          class="header__logo"
+          alt="Airbnb logo"
+        />
+      </a>
+    </header>
+    <!-- main -->
+    <main class="main">
+      <div class="main__back">
+        <a href="/rooms/<%= data.room._id  %> ">
+          <span class="material-symbols-outlined"> chevron_left </span>
+        </a>
+        <h1>Confirm and Pay</h1>
+      </div>
+      <div class="main__main">
+        <div class="main__left">
+          <div class="main__your--trip">
+            <h2>Your trip</h2>
+            <div class="your__trip__item">
+              <p>Guests</p>
+              <p><%= data.room.accommodates %></p>
+            </div>
+          </div>
+          <div class="main__confirm__pay">
+            <p>
+              By selecting the button below, I agree to the Host's House Rules,
+              Airbnb's Rebooking and Refund Policy and that Airbnb can charge my
+              payment method if I’m responsible for damage.
+            </p>
+            <button class="pay__button">Confirm and Pay</button>
+          </div>
+        </div>
+        <div class="main__right">
+          <div class="right__img">
+            <img src="<%= data.room.images.picture_url  %> " alt="Room image" />
+            <p><%= data.room.name %></p>
+          </div>
+          <div class="right__booking__protection">
+            <p>Your booking is protected by aircover</p>
+          </div>
+          <div class="right__price__details">
+            <h2>Price details</h2>
+            <div class="price__details__item">
+              <p>
+                <%= new Intl.NumberFormat('en-US', { style: 'currency',
+                currency: 'INR', minimumFractionDigits: 2
+                }).format(data.room.price * 82) %> x
+                <span class="calculation__item__selected__nights"></span> nights
+              </p>
+              <p>
+                <%= new Intl.NumberFormat('en-US', { style: 'currency',
+                currency: 'INR', minimumFractionDigits: 2
+                }).format(data.room.price * 82) %>
+              </p>
+            </div>
+            <div class="price__details__item">
+              <p>Cleaning fee</p>
+              <p>
+                <%= new Intl.NumberFormat('en-US', { style: 'currency',
+                currency: 'INR', minimumFractionDigits: 2
+                }).format(data.room.cleaning_fee * 82) %>
+              </p>
+            </div>
+          </div>
+          <div class="right__price__total">
+            <p>Total (INR)</p>
+            <p>
+              <%= new Intl.NumberFormat('en-US', { style: 'currency', currency:
+              'INR', minimumFractionDigits: 2 }).format((Number(data.room.price)
+              +Number( data.room.cleaning_fee)) * 82) %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- bookingn confirm modal-->
+    <div class="booking__confirmed modal--closed">
+      <span class="material-symbols-outlined"> check </span>
+      <h1>Booking confirmed</h1>
+    </div>
+    <!-- footer -->
+    <footer class="home__footer">
+      <div class="footer__left">
+        <p>&copy; 2022 Airbnb,Inc.</p>
+        <span>&middot;</span>
+        <a class="footer__left--item" href="/privacy">Privacy</a>
+        <span>&middot;</span>
+
+        <a class="footer__left--item" href="/terms">Terms</a>
+        <span>&middot;</span>
+
+        <a class="footer__left--item" href="/sitemaps">Sitemaps</a>
+        <span>&middot;</span>
+
+        <a class="footer__left--item" href="/about/company-details"
+          >Company Details</a
+        >
+        <span>&middot;</span>
+
+        <button class="footer__left--item">Destinations</button>
+      </div>
+      <div class="footer__right">
+        <button class="footer__right--item">English (IN)</button>
+        <button class="footer__right--item">INR</button>
+        <button class="footer__right--item default">Support & Resources</button>
+      </div>
+    </footer>
+  </body>
+</html>
