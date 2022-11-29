@@ -1,5 +1,4 @@
 const { clientDB } = require("../config/dbConn");
-const path = require("path");
 const get_homepage = async (req, res) => {
   const { filter, destination } = req.query;
   let selectedFilter;
@@ -55,7 +54,7 @@ const get_homepage = async (req, res) => {
     });
     selectedFilter = "Your homes";
   }
-  res.render("Homepage", {
+  res.render("HomePage", {
     data: {
       userType: req.cookies.userType,
       username: req.cookies.user,
