@@ -509,21 +509,10 @@ div > h2 {
   color: white;
   padding: 5px 0px;
   text-align: center;
-  animation: error 5s;
   width: 100%;
   position: sticky;
   top: 0;
   left: 0;
 }
 
-@keyframes error {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
+

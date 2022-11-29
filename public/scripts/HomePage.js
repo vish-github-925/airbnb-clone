@@ -21,8 +21,11 @@ const loginToSignupBtn = document.querySelector(".login__to-signup__btn");
 const searchHeader = document.querySelector(".header__search");
 const roomsSearch = document.querySelector(".search__header");
 const body = document.body;
+
+// close modal on clicking the outside of the modal
 closeModal.addEventListener("click", closeLoginSignupModal);
 
+// Open or close the search by country filter
 searchHeader.addEventListener("click", (e) => {
   if (roomsSearch.classList.contains("search--close")) {
     roomsSearch.classList.remove("search--close");
@@ -30,6 +33,8 @@ searchHeader.addEventListener("click", (e) => {
     roomsSearch.classList.add("search--close");
   }
 });
+
+// open or close the authentication field card
 headerAuth.addEventListener("click", (e) => {
   e.stopPropagation();
   if (headerAuthOptions.classList.contains("auth--closed")) {
@@ -38,17 +43,28 @@ headerAuth.addEventListener("click", (e) => {
     headerAuthOptions.classList.add("auth--closed");
   }
 });
+
+// close the authentication field card, on clicking outside of the auth field
 window.addEventListener("click", () => {
   headerAuthOptions.classList.add("auth--closed");
 });
 
+// if login element is present, open or close the login modal
 login?.addEventListener("click", openOrCloseLoginModal);
+
+// if signup element is present, open or close the signup modal
 signUp?.addEventListener("click", openOrCloseSignupModal);
+
+// closing the login or signup modal on clicking outside of the modal
 loginSignupModalBackdrop?.addEventListener("click", closeLoginSignupModal);
+
+// stopping the propagation, to not close the login or signup modal on clicking on the modal itself
 loginSignupModal?.addEventListener("click", (e) => e.stopPropagation());
 // submitLoginSignupForm.addEventListener("click", (e) => {
 //   e.preventDefault();
 // });
+
+// function to open or close login modal
 function openOrCloseLoginModal() {
   modalHeaderText.textContent = "Log in";
   signUpForm.classList.add("login-signup__form--disabled");
@@ -61,6 +77,8 @@ function openOrCloseLoginModal() {
     body.style.overflow = "hidden";
   }
 }
+
+// function to open or close signup modal
 function openOrCloseSignupModal() {
   modalHeaderText.textContent = "Sign Up";
   signUpForm.classList.remove("login-signup__form--disabled");
@@ -73,12 +91,15 @@ function openOrCloseSignupModal() {
     document.body.style.overflowY = "hidden";
   }
 }
+
+// function to close the login or signup modal
 function closeLoginSignupModal() {
   document.body.style.overflowY = "scroll";
 
   loginSignupModalBackdrop.classList.add("modal--closed");
 }
 
+// displaying the error element only when the error is present and closing after 5 seconds
 const errorEle = document.querySelector(".error");
 if (errorEle) {
   setTimeout(() => {

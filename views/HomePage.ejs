@@ -22,10 +22,11 @@
     <title>Holiday Homes & Apartment Rentals - Airbnb - Airbnb</title>
   </head>
   <body>
-    <!-- error element -->
+    <!-- authentication error element -->
     <% if(data?.error) { %> 
     <p class="error"><%= data.error  %> </p>
     <% } %> 
+
     <!-- header -->
     <header class="home__header">
       <a href="/">
@@ -92,7 +93,7 @@
       </div>
     </header>
 
-    <!-- next header -->
+    <!-- search based on country  -->
     <div class="search__header search--close">
       <form class="search__header__items" action="/">
       <div class="search__header__item">
@@ -190,6 +191,20 @@
       <% } %>
     </section>
     <!-- main section -->
+
+    <!--if no rooms (main section)-->
+    <% if((data.rooms.length === 0)) { %>
+      <main class="no__main">
+        <section class="no__rooms">
+          <img src="./images/no-rooms.gif" alt="No rooms yet">
+        </section>
+        <div class="no__rooms__details">
+        <h1>You have not hosted any rooms yet!</h1>
+        <p><a href="/host/homes">Click here</a> to start hosting</p>
+      </div>
+      </main> 
+      <% } else  {%> 
+        <!-- if rooms are available (main section) -->
     <main class="home__main">
       <% if(data?.rooms) {%>
       <!-- All rooms section -->
@@ -230,6 +245,7 @@
         <% })} %>
       </section>
     </main>
+    <% } %> 
     <!-- footer section -->
     <footer class="home__footer">
       <div class="footer__left">

@@ -1,25 +1,31 @@
+// requiring the db connection Object
 const { clientDB } = require("../config/dbConn");
+
+// controller funciton to get the HostPage view
 const get_hosthome = (req, res) => {
+  // rendering the "HostPage" view with necessary data
   res.render("HostPage", {
     data: {
-      userType: req.cookies.userType,
       username: req.cookies.user,
       error: req.cookies.error,
     },
   });
 };
 
+// controller function to get the SetupHomePage vie
 const get_setuphome = (req, res) => {
+  // rendering the "SetupHomePage" view with necessary data
   res.render("SetupHomePage", {
     data: {
-      userType: req.cookies.userType,
       username: req.cookies.user,
       error: req.cookies.error,
     },
   });
 };
 
+// controller function to add the home created by the user to the db
 const add_newhome = async (req, res) => {
+  // storing the req.body data by creating the required object
   const roomData = {
     name: req.body.name,
     address: {
@@ -43,7 +49,10 @@ const add_newhome = async (req, res) => {
     amenities: req.body.amenities.split(","),
   };
   let room;
+
+  // inserting the object to the "rooms" collection
   room = await clientDB.db().collection("rooms").insertOne(roomData);
+
   if (room) {
     return res.redirect("/?filter=by_you");
   }

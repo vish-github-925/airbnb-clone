@@ -1,4 +1,4 @@
-const headerAuth = document.querySelector(".host__options--setup");
+const headerAuth = document.querySelector(".header__options--setup");
 const headerAuthOptions = document.querySelector(
   ".header__options--auth-more-options"
 );
