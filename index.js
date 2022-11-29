@@ -32,7 +32,13 @@ app.use(
 
 // Setting view engine
 app.set("view engine", "ejs");
-app.set("views", path.resolve(__dirname, "views"));
+if (process.env.NODE_ENV === "development") {
+  app.set("views", path.resolve(__dirname, "views"));
+}
+// for render deployment setting views directory to /opt/render/project/src/views
+if (process.env.NODE_ENV === "production") {
+  app.set("views", path.resolve(__dirname, "views"));
+}
 
 // Settign public folder as express static folder
 app.use(express.static(path.resolve(__dirname, "public")));
