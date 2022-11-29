@@ -179,13 +179,13 @@
         </span>
       <p>Your homes</p>
       </a>
-      <% for(let i = 0; i < data.filters.length; i++) {%>
+      <% for(let i = 0; i < data?.filters.length; i++) {%>
       <a
         class="home__filter <% if(data?.selectedFilter === data?.filters[i]) {%> filter--selected<% } %>  "
-        href="/?filter=<%=data.filters[i].toLowerCase().replaceAll(" ","_") %> "
+        href="/?filter=<%=data?.filters[i].toLowerCase().replaceAll(" ","_") %> "
       >
-        <span class="material-symbols-outlined"> <%= data.icons[i] %> </span>
-        <p><%= data.filters[i] %></p>
+        <span class="material-symbols-outlined"> <%= data?.icons[i] %> </span>
+        <p><%= data?.filters[i] %></p>
       </a>
       <% } %>
     </section>
@@ -194,7 +194,7 @@
       <% if(data?.rooms) {%>
       <!-- All rooms section -->
       <section class="home__rooms">
-        <% data.rooms.forEach(room => { %>
+        <% data?.rooms.forEach(room => { %>
         <!-- Each room display and link -->
         <a href="/rooms/<%=room._id %> " class="home__room" target="_blank">
           <img
