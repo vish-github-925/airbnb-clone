@@ -32,11 +32,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Setting view engine
 app.set("view engine", "ejs");
-app.set("views", path.resolve(__dirname, "views"));
+app.set("views", "views");
 // for render deployment setting views directory to /opt/render/project/src/views
 
 // Settign public folder as express static folder
-app.use(express.static(path.resolve(__dirname, "public")));
+app.use(express.static("public"));
 
 // Routes
 app.use("/", rootRoutes);
