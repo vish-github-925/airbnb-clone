@@ -37,7 +37,10 @@ if (process.env.NODE_ENV === "development") {
 }
 // for render deployment setting views directory to /opt/render/project/src/views
 if (process.env.NODE_ENV === "production") {
-  app.set("views", path.resolve(__dirname, "views"));
+  app.set(
+    "views",
+    path.resolve(__dirname, "opt", "render", "project", "src", "views")
+  );
 }
 
 // Settign public folder as express static folder
