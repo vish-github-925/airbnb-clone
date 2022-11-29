@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+html {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+body {
+  line-height: 1.43;
+  font-size: 14px;
+  min-height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+h1 {
+  font-size: 35px;
+  text-align: center;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: unset;
+  padding: unset;
+  letter-spacing: 0.8px;
+  font-size: inherit;
+}
+.home__header {
+  background-color: red;
+  height: 90px;
+  width: 100%;
+  background-color: white;
+  border-bottom: 0.5px solid rgb(209, 197, 197);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 50px;
+  color: black;
+  position: sticky;
+  top: 0px;
+  z-index: 2;
+}
+/* header logo */
+.header__logo {
+  align-self: flex-start;
+  height: 85%;
+  width: 125px;
+  flex-basis: 1;
+}
+.header__logo > img {
+  height: 100%;
+  width: 100%;
+}
+a {
+  color: black;
+  font-weight: 500;
+  text-decoration: none;
+}
+button {
+  outline: none;
+  background-color: white;
+  border: none;
+}
+.main {
+  min-height: 100vh;
+  padding: 50px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 80%;
+  width: 75%;
+  border-radius: 10px;
+  border: 2px solid lightseagreen;
+  padding: 50px 100px;
+}
+.input__item {
+  min-height: 5%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.input__item > label {
+  font-size: 20px;
+}
+.input__item > input,
+.input__item > textarea {
+  width: 100%;
+  border: 1px solid lightgray;
+  outline: none;
+  height: 50px;
+  border-radius: 10px;
+  padding: 3px 10px;
+}
+.submit__room__form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.submit__room__form > button {
+  height: 50px;
+  width: 100px;
+  border-radius: 10px;
+  background-color: #ff385c;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+}

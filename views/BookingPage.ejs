@@ -46,9 +46,19 @@
             <h2>Your trip</h2>
             <div class="your__trip__item">
               <p>Guests</p>
-              <p><%= data.room.accommodates %></p>
+              <p><%= data.body.room__guests %></p>
+            </div>
+            <div class="your__trip__item">
+              <p>Dates</p>
+              <p>
+                <%= new Date(data.body.room__checkin).toLocaleString("en-US",
+                {month: "short", day: "numeric"})%> to <%= new
+                Date(data.body.room__checkout).toLocaleString("en-US", {month:
+                "short", day: "numeric"})%>
+              </p>
             </div>
           </div>
+
           <div class="main__confirm__pay">
             <p>
               By selecting the button below, I agree to the Host's House Rules,
@@ -69,42 +79,31 @@
           <div class="right__price__details">
             <h2>Price details</h2>
             <div class="price__details__item">
-              <p>
-                <%= new Intl.NumberFormat('en-US', { style: 'currency',
-                currency: 'INR', minimumFractionDigits: 2
-                }).format(data.room.price * 82) %> x
-                <span class="calculation__item__selected__nights"></span> nights
-              </p>
-              <p>
-                <%= new Intl.NumberFormat('en-US', { style: 'currency',
-                currency: 'INR', minimumFractionDigits: 2
-                }).format(data.room.price * 82) %>
-              </p>
+              <p>Amount for stay</p>
+              <p><%= data.query.amount_for_nights %></p>
             </div>
+            <% if(data.query.cleaning_fee) {%>
             <div class="price__details__item">
               <p>Cleaning fee</p>
-              <p>
-                <%= new Intl.NumberFormat('en-US', { style: 'currency',
-                currency: 'INR', minimumFractionDigits: 2
-                }).format(data.room.cleaning_fee * 82) %>
-              </p>
+              <p><%= data.query.cleaning_fee %></p>
             </div>
+            <% } %>
           </div>
           <div class="right__price__total">
             <p>Total (INR)</p>
-            <p>
-              <%= new Intl.NumberFormat('en-US', { style: 'currency', currency:
-              'INR', minimumFractionDigits: 2 }).format((Number(data.room.price)
-              +Number( data.room.cleaning_fee)) * 82) %>
-            </p>
+            <p><%= data.query.total_amount %></p>
           </div>
         </div>
       </div>
     </main>
     <!-- bookingn confirm modal-->
     <div class="booking__confirmed modal--closed">
-      <span class="material-symbols-outlined"> check </span>
-      <h1>Booking confirmed</h1>
+      <h1>
+        <span class="material-symbols-outlined"> check </span> &nbsp; Booking
+        confirmed
+      </h1>
+      <h2 style="color: white">Thanks for using Airbnb</h2>
+      <p style="color: white">Redirecting to main page</p>
     </div>
     <!-- footer -->
     <footer class="home__footer">

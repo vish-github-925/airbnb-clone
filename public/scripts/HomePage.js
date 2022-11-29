@@ -17,8 +17,19 @@ const loginSignupModalBackdrop = document.querySelector(
 const closeModal = document.querySelector(".close--modal");
 const modalHeaderText = document.querySelector(".modal--header__heading");
 const loginToSignupBtn = document.querySelector(".login__to-signup__btn");
+
+const searchHeader = document.querySelector(".header__search");
+const roomsSearch = document.querySelector(".search__header");
+const body = document.body;
 closeModal.addEventListener("click", closeLoginSignupModal);
 
+searchHeader.addEventListener("click", (e) => {
+  if (roomsSearch.classList.contains("search--close")) {
+    roomsSearch.classList.remove("search--close");
+  } else {
+    roomsSearch.classList.add("search--close");
+  }
+});
 headerAuth.addEventListener("click", (e) => {
   e.stopPropagation();
   if (headerAuthOptions.classList.contains("auth--closed")) {
@@ -28,14 +39,13 @@ headerAuth.addEventListener("click", (e) => {
   }
 });
 window.addEventListener("click", () => {
-  document.body.style.overflowY = "scroll";
   headerAuthOptions.classList.add("auth--closed");
 });
 
-login.addEventListener("click", openOrCloseLoginModal);
-signUp.addEventListener("click", openOrCloseSignupModal);
-loginSignupModalBackdrop.addEventListener("click", closeLoginSignupModal);
-loginSignupModal.addEventListener("click", (e) => e.stopPropagation());
+login?.addEventListener("click", openOrCloseLoginModal);
+signUp?.addEventListener("click", openOrCloseSignupModal);
+loginSignupModalBackdrop?.addEventListener("click", closeLoginSignupModal);
+loginSignupModal?.addEventListener("click", (e) => e.stopPropagation());
 // submitLoginSignupForm.addEventListener("click", (e) => {
 //   e.preventDefault();
 // });
@@ -45,10 +55,10 @@ function openOrCloseLoginModal() {
   loginForm.classList.remove("login-signup__form--disabled");
   if (!loginSignupModalBackdrop.classList.contains("modal--closed")) {
     loginSignupModalBackdrop.classList.add("modal--closed");
-    document.body.style.overflowY = "scroll";
+    body.style.overflow = "scroll";
   } else {
     loginSignupModalBackdrop.classList.remove("modal--closed");
-    document.body.style.overflowY = "hidden";
+    body.style.overflow = "hidden";
   }
 }
 function openOrCloseSignupModal() {
@@ -64,5 +74,17 @@ function openOrCloseSignupModal() {
   }
 }
 function closeLoginSignupModal() {
+  document.body.style.overflowY = "scroll";
+
   loginSignupModalBackdrop.classList.add("modal--closed");
+}
+
+const errorEle = document.querySelector(".error");
+if (errorEle) {
+  setTimeout(() => {
+    errorEle.style.display = "block";
+  }, 1000);
+  setTimeout(() => {
+    errorEle.style.display = "none";
+  }, 5000);
 }

@@ -28,12 +28,11 @@ headerAuth.addEventListener("click", (e) => {
   }
 });
 window.addEventListener("click", () => {
-  document.body.style.overflowY = "scroll";
   headerAuthOptions.classList.add("auth--closed");
 });
 
-login.addEventListener("click", openOrCloseLoginModal);
-signUp.addEventListener("click", openOrCloseSignupModal);
+login?.addEventListener("click", openOrCloseLoginModal);
+signUp?.addEventListener("click", openOrCloseSignupModal);
 loginSignupModalBackdrop.addEventListener("click", closeLoginSignupModal);
 loginSignupModal.addEventListener("click", (e) => e.stopPropagation());
 // submitLoginSignupForm.addEventListener("click", (e) => {
@@ -64,5 +63,15 @@ function openOrCloseSignupModal() {
   }
 }
 function closeLoginSignupModal() {
+  document.body.style.overflowY = "scroll";
   loginSignupModalBackdrop.classList.add("modal--closed");
+}
+const errorEle = document.querySelector(".error");
+if (errorEle) {
+  setTimeout(() => {
+    errorEle.style.display = "block";
+  }, 1000);
+  setTimeout(() => {
+    errorEle.style.display = "none";
+  }, 10000);
 }

@@ -3,90 +3,99 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const process_login = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   // checking user existance in the db
-  console.log(req.baseUrl);
+  console.log(email, password);
   let user;
-  if (req.baseUrl.includes("host")) {
-    user = await clientDB.db().collection("hosts").findOne({ username });
-  } else {
-    user = await clientDB.db().collection("users").findOne({ username });
-  }
+
+  user = await clientDB.db().collection("users").findOne({ email });
   // if user already exists and password matches
   if (user && (await bcrypt.compare(password, user.password))) {
     const jwtToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: 60000,
     });
-    if (req.baseUrl.includes("host")) {
-      res.cookie("userType", "host");
-      res.cookie("host", user.username);
-    } else {
-      res.cookie("userType", "user");
-      res.cookie("user", user.username);
-    }
+    res.cookie("user", user.username);
     res.cookie("auth_token", jwtToken);
-    res.clearCookie("error");
     if (req.baseUrl.includes("host")) {
       res.redirect("/host/homes");
+    } else if (req.baseUrl.includes("rooms")) {
+      res.redirect(`/rooms/${req.path.split("/")[1]}`);
     } else {
       res.redirect("/");
     }
   } else {
-    res.cookie("error", "user doesnt exist");
-    res.redirect("/");
+    res.cookie("error", "User doesnt exist", { maxAge: 10000 });
+    if (req.baseUrl.includes("host")) {
+      res.redirect("/host/homes");
+    } else if (req.baseUrl.includes("rooms")) {
+      res.redirect(`/rooms/${req.path.split("/")[1]}`);
+    } else {
+      res.redirect("/");
+    }
   }
 };
 
 // signup
 const process_signup = async (req, res) => {
-  const { username, password, password2 } = req.body;
+  const { username, email, password, password2 } = req.body;
 
   if (password === password2) {
     // jwt token
 
     // check user existance
     let user;
-    if (req.baseUrl.includes("host")) {
-      user = await clientDB.db().collection("hosts").findOne({ username });
-    } else {
-      user = await clientDB.db().collection("users").findOne({ username });
-    }
+
+    user = await clientDB.db().collection("users").findOne({ email });
+
     if (user) {
-      res.cookie("error", "User already exists");
-      return res.redirect("/");
+      res.cookie(
+        "error",
+        "User already exists, Please create an account first",
+        { maxAge: 10000 }
+      );
+      if (req.baseUrl.includes("host")) {
+        res.redirect("/host/homes");
+      } else if (req.baseUrl.includes("rooms")) {
+        res.redirect(`/rooms/${req.path.split("/")[1]}`);
+      } else {
+        res.redirect("/");
+      }
+      return;
     }
 
     // hashing password
     const hashedPassword = await bcrypt.hash(password, 10);
     let newUser;
-    if (req.baseUrl.includes("host")) {
-      newUser = await clientDB
-        .db()
-        .collection("hosts")
-        .insertOne({ username, password: hashedPassword });
-      res.cookie("host", username);
-      res.cookie("userType", "host");
-    } else {
-      newUser = await clientDB
-        .db()
-        .collection("users")
-        .insertOne({ username, password: hashedPassword });
-      res.cookie("user", username);
-      res.cookie("userType", "user");
-    }
+
+    newUser = await clientDB
+      .db()
+      .collection("users")
+      .insertOne({ username, email, password: hashedPassword });
+
+    res.cookie("user", username);
+
     const jwtToken = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: 60000,
     });
     res.cookie("auth-token", jwtToken);
-    res.clearCookie("error");
     if (req.baseUrl.includes("host")) {
       res.redirect("/host/homes");
+    } else if (req.baseUrl.includes("rooms")) {
+      res.redirect(`/rooms/${req.path.split("/")[1]}`);
     } else {
       res.redirect("/");
     }
   } else {
-    res.cookie("error", "Passwords did not match, Please try again");
-    res.redirect("/");
+    res.cookie("error", "Passwords did not match, Please try again", {
+      maxAge: 10000,
+    });
+    if (req.baseUrl.includes("host")) {
+      res.redirect("/host/homes");
+    } else if (req.baseUrl.includes("rooms")) {
+      res.redirect(`/rooms/${req.path.split("/")[1]}`);
+    } else {
+      res.redirect("/");
+    }
   }
 };
 // logout
@@ -95,6 +104,11 @@ const process_logout = async (req, res) => {
   res.clearCookie("userType");
   res.clearCookie("user");
   res.clearCookie("host");
+  if (req.baseUrl.includes("rooms")) {
+    return res.redirect(`/rooms/${req.path.split("/")[1]}`);
+  } else if (req.baseUrl.includes("host")) {
+    return res.redirect(`/host/homes`);
+  }
   res.redirect("/");
 };
 module.exports = {

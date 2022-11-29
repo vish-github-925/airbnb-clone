@@ -116,7 +116,7 @@ button {
   padding: 10px;
 }
 .main__confirm__pay > p {
-  font-size: 25px;
+  font-size: 20px;
 }
 .main__confirm__pay > button {
   height: 100%;
@@ -140,12 +140,18 @@ button {
   background-color: rgba(0, 0, 0, 0.534);
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 20px;
 }
 .booking__confirmed > h1,
 span {
+  color: white;
+}
+.booking__confirmed > h1 > span {
+  border-radius: 50%;
+  background-color: lightseagreen;
   color: white;
 }
 .modal--closed {
@@ -189,4 +195,60 @@ span {
 .footer__right--item:hover {
   cursor: pointer;
   border-bottom: 2px solid black;
+}
+/* login  */
+.login-signup__modal {
+  margin: 50px 0px;
+  width: 100%;
+  min-height: 300px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+.login-signup__modal--header {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  height: 80px;
+}
+.login-signup__modal--header > img {
+  justify-self: flex-start;
+}
+.login-signup__modal--header > h2 {
+  justify-self: center;
+  margin-left: 250px;
+  font-size: 35px;
+}
+.login-signup__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+}
+.login-signup__form > h2 {
+  font-size: 30px;
+}
+.login-signup__form > input {
+  height: 40px;
+  min-width: 75%;
+  padding: 0px 10px;
+  border-radius: 10px;
+  outline: none;
+  border: 2px solid lightgray;
+}
+.login-signup__form > input:focus {
+  border: 2px solid lightseagreen;
+}
+.login-signup__form > p {
+  font-size: 25px;
+}
+.login-signup__form > button {
+  background-color: #ff385c;
+  border-radius: 10px;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
 }

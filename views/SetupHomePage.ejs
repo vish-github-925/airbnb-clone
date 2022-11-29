@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Setup Home</title>
+
+    <!-- linking css -->
+    <link rel="stylesheet" href="../../styles/SetupHomePage.css" />
+  </head>
+  <body>
+    <!-- header -->
+    <header class="home__header">
+      <a href="/host/homes" class="header__logo">
+        <img
+          src="../images/airbnb-secondary-logo.png"
+          alt="Airbnb small logo"
+          class="host__logo"
+        />
+      </a>
+    </header>
+
+    <!-- main -->
+    <main class="main">
+      <h1>Host your room</h1>
+      <form action="/host/add-home" class="room__form" method="post">
+        <div class="input__item">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Enter room name"
+            required
+          />
+        </div>
+        <div class="input__item">
+          <label for="street">Street</label>
+          <input
+            type="text"
+            name="street"
+            id="street"
+            placeholder="Enter Address"
+            required
+          />
+        </div>
+        <div class="input__item">
+          <label for="picture_url">Picture URL</label>
+          <input
+            type="url"
+            name="picture_url"
+            id="picture_url"
+            placeholder="Enter room picture url"
+            value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZq9uWXBeVS7TfiBqhAGvtXcy9f63cQMyWPw&usqp=CAU"
+            required
+          />
+        </div>
+        <div class="input__item">
+          <label for="superhost">SuperHost</label>
+          <input
+            type="text"
+            name="superhost"
+            id="superhost"
+            value="True"
+            readonly
+          />
+        </div>
+        <div class="input__item">
+          <label for="hostname">Host Name</label>
+          <input
+            type="text"
+            name="hostname"
+            id="hostname"
+            value="<%= data?.username %>"
+            readonly
+          />
+        </div>
+        <div class="input__item">
+          <label for="hostname">About Host</label>
+          <textarea
+            type="text"
+            name="hostabout"
+            id="hostabout"
+            rows="3"
+            cols="10"
+            value="random data"
+            readonly
+          >
+dummy data</textarea
+          >
+        </div>
+        <div class="input__item">
+          <label for="responsRate">Response Rate</label>
+          <input
+            type="text"
+            name="responseRate"
+            id="responseRate"
+            value="10"
+            readonly
+          />
+        </div>
+        <div class="input__item">
+          <label for="responseTime">Response Time</label>
+          <input
+            type="text"
+            name="responseTime"
+            id="responseTime"
+            value="Within an hour"
+            readonly
+          />
+        </div>
+        <div class="input__item">
+          <label for="accommodates">Accommodates</label>
+          <input
+            type="number"
+            name="accommodates"
+            id="accommodates"
+            placeholder="Enter number of guests"
+            required
+          />
+        </div>
+        <div class="input__item">
+          <label for="beds">Number of Beds</label>
+          <input
+            type="number"
+            name="beds"
+            id="beds"
+            placeholder="Enter number of beds"
+            required
+          />
+        </div>
+        <div class="input__item">
+          <label for="bathrooms">Number of Bathrooms</label>
+          <input
+            type="number"
+            name="bathrooms"
+            id="bathrooms"
+            placeholder="Enter number of bathrooms required"
+          />
+        </div>
+        <div class="input__item">
+          <label for="amenities">Amenities</label>
+          <textarea
+            type="text"
+            name="amenities"
+            id="amenities"
+            rows="3"
+            cols="10"
+            value="random data"
+            readonly
+          >
+Wifi,CableTV,Kitchen,Pets Allowed,Smoking Allowed,Swimming Pool</textarea
+          >
+        </div>
+        <div class="input__item">
+          <label for="price">Price (in USD)</label>
+          <input
+            type="number"
+            name="price"
+            id="price"
+            placeholder="Enter price of the room"
+            required
+          />
+        </div>
+        <div class="input__item">
+          <label for="cleaningFee">Cleaning fee (in USD)</label>
+          <input
+            type="number"
+            name="cleaningFee"
+            id="cleaningFee"
+            placeholder="Enter cleaning fee"
+            required
+          />
+        </div>
+        <div class="submit__room__form">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

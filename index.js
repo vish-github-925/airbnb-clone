@@ -51,8 +51,10 @@ app.use("/rooms", roomRoutes);
 app.use("/book", bookRoutes);
 // logout
 app.get("/logout", (req, res) => {
+  res.clearCookie("auth-token");
   res.clearCookie("user");
   res.clearCookie("host");
+  res.clearCookie("userType");
   res.redirect("/");
 });
 

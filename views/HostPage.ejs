@@ -16,6 +16,10 @@
     <title>Host your home on Airbnb</title>
   </head>
   <body>
+    <!-- error element -->
+    <% if(data?.error) { %>
+    <p class="error"><%= data.error %></p>
+    <% } %>
     <!-- header starts here -->
     <header class="home__header">
       <a href="/" class="header__logo">
@@ -38,27 +42,17 @@
           <div></div>
         </div>
         <div class="auth-more-options__bottom">
-          <button><a href="/">See Others homes</a></button>
-          <button><a href="/host/experience">Host an experience</a></button>
-          <button><a href="/help">Help</a></button>
+          <a href="/">See Others homes</a>
+          <a href="/host/experience">Host an experience</a>
+          <a href="/help">Help</a>
         </div>
       </div>
       <% } else { %>
       <div class="header__options--auth-more-options auth--closed">
-        <div class="auth-more-options__top">
-          <button class="text_bold">Messages</button>
-          <button class="text_bold">Notificaions</button>
-          <button class="text_bold">Trips</button>
-          <button class="text_bold">WishList</button>
-        </div>
         <div class="auth-more-options__bottom">
-          <button><a href="/host/homes">Airbnb your home</a></button>
-          <button><a href="/host/experience">Host an experience</a></button>
-          <button><a href="#">Account</a></button>
-        </div>
-        <div class="auth-more-options__bottom">
-          <button><a href="/help">Help</a></button>
-          <button><a href="/auth/logout">Logout</a></button>
+          <a href="/host/set-up-home">Airbnb your home</a>
+          <a href="/?filter=by_you">Your homes</a>
+          <a href="/host/auth/logout" class="text_bold">Logout</a>
         </div>
       </div>
       <% } %>
@@ -82,7 +76,7 @@
           action="/host/auth/login"
         >
           <h2 style="text-align: center">Welcome to Airbnb</h2>
-          <input type="email" placeholder="Enter your email" name="username" />
+          <input type="email" placeholder="Enter your email" name="email" />
           <input
             type="password"
             placeholder="Enter your password"
@@ -99,7 +93,12 @@
           action="/host/auth/signup"
         >
           <h2>Welcome to Airbnb</h2>
-          <input type="email" placeholder="Enter your email" name="username" />
+          <input type="email" placeholder="Enter your email" name="email" />
+          <input
+            type="text"
+            placeholder="Enter your username"
+            name="username"
+          />
           <input
             type="password"
             placeholder="Enter your password"

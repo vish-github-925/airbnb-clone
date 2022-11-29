@@ -8,6 +8,9 @@ function bookingConfirmed() {
   if (bookingModal.classList.contains("modal--closed")) {
     bookingModal.classList.remove("modal--closed");
   }
+  setTimeout(() => {
+    // window.location.href = "/";
+  }, 3000);
 }
 function closeModal() {
   document.body.style.overflowY = "scroll";

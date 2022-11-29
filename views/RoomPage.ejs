@@ -23,6 +23,10 @@
     <title><%= data.room.name %></title>
   </head>
   <body>
+    <!-- error element -->
+    <% if(data?.error) { %>
+    <p class="error"><%= data.error %></p>
+    <% } %>
     <!-- header -->
     <header class="home__header">
       <a href="/">
@@ -32,12 +36,6 @@
           alt="Airbnb logo"
         />
       </a>
-      <div class="header__search">
-        <button class="guests">Start your search</button>
-        <div class="search__box">
-          <span class="material-symbols-outlined"> search </span>
-        </div>
-      </div>
 
       <div class="header__options">
         <a href="/host/homes" class="header__options--make-airbnb-your-home"
@@ -58,9 +56,9 @@
             <div></div>
           </div>
           <div class="auth-more-options__bottom">
-            <button><a href="/host/homes">Airbnb your home</a></button>
-            <button><a href="/host/experience">Host an experience</a></button>
-            <button><a href="/help">Help</a></button>
+            <a href="/host/homes">Airbnb your home</a>
+            <a href="/host/experience">Host an experience</a>
+            <a href="/help">Help</a>
           </div>
         </div>
         <% } else { %>
@@ -72,13 +70,10 @@
             <button class="text_bold">WishList</button>
           </div>
           <div class="auth-more-options__bottom">
-            <button><a href="/host/homes">Airbnb your home</a></button>
-            <button><a href="/host/experience">Host an experience</a></button>
-            <button><a href="#">Account</a></button>
+            <a href="/host/homes">Airbnb your home</a>
           </div>
           <div class="auth-more-options__bottom">
-            <button><a href="/help">Help</a></button>
-            <button><a href="/auth/logout">Logout</a></button>
+            <a class="room__logout" href="/auth/logout">Logout</a>
           </div>
         </div>
         <% } %>
@@ -94,7 +89,7 @@
           <button class="close--modal">
             <span class="material-symbols-outlined"> close </span>
           </button>
-          <h2>Log in or sign up</h2>
+          <h2 class="modal--header__heading">Log in or sign up</h2>
         </div>
         <!-- login form -->
         <form
@@ -103,22 +98,16 @@
           action="/auth/login"
         >
           <h2>Welcome to Airbnb</h2>
-          <input type="email" placeholder="Enter your email" name="username" />
+          <input type="email" placeholder="Enter your email" name="email" />
           <input
             type="password"
             placeholder="Enter your password"
             name="password"
           />
-          <p>
-            We’ll call or text you to confirm your number. Standard message and
-            data rates apply. Privacy Policy
-          </p>
+
           <button type="submit" class="login-signup__form--submit--primary">
             Continue
           </button>
-          <% if(data) {%>
-          <p><%= data.error %></p>
-          <% } %>
         </form>
         <!-- Sign up form -->
         <form
@@ -127,7 +116,8 @@
           action="/auth/signup"
         >
           <h2>Welcome to Airbnb</h2>
-          <input type="email" placeholder="Enter your email" name="username" />
+          <input type="email" placeholder="Enter your email" name="email" />
+          <input type="text" placeholder="Enter your name" name="username" />
           <input
             type="password"
             placeholder="Enter your password"
@@ -138,16 +128,10 @@
             placeholder="Confirm your password"
             name="password2"
           />
-          <p>
-            We’ll call or text you to confirm your number. Standard message and
-            data rates apply. Privacy Policy
-          </p>
+
           <button type="submit" class="login-signup__form--submit--primary">
             Continue
           </button>
-          <% if(data) {%>
-          <p><%= data.error %></p>
-          <% } %>
         </form>
       </div>
     </section>
@@ -164,6 +148,7 @@
             <span>
               <%= data.room.review_scores.review_scores_rating / 20 %>
             </span>
+            <span>&nbsp;</span>
             <span style="text-decoration: underline"
               ><%= data.room.number_of_reviews %> reviews
             </span>
@@ -241,19 +226,27 @@
               <span style="font-size: 13px">night</span>
             </p>
           </div>
-          <form action="/book/<%= data.room._id  %> " method="post">
+          <form
+            action="/book/<%= data.room._id  %> "
+            method="post"
+            class="book__room__form"
+          >
             <div class="amenities__checkin__checkout">
               <div class="checkin__checkout">
                 <div class="input__element">
                   <span>CHECK IN</span>
-                  <input type="date" id="room__checkin" value ="<%= new
-                  Date().toLocaleString("en-US").split(',')[0] %> "
-                  name="room__checkin" />
+                  <input
+                    type="date"
+                    required
+                    id="room__checkin"
+                    name="room__checkin"
+                  />
                 </div>
                 <div class="input__element">
                   <span>CHECK OUT</span>
                   <input
                     type="date"
+                    required
                     id="room__checkout"
                     name="room__checkout"
                   />
@@ -272,7 +265,10 @@
               </div>
             </div>
             <div class="amenities__reserve">
-              <button type="submit">Reserve</button>
+              <button type="submit" <% if(!data?.username) {%>
+                disabled <% } %> > <% if(!data?.username) {%> Please login to
+                reserve <% } else { %> Reserve<% } %>
+              </button>
             </div>
           </form>
           <div class="amenities__not__charged">
@@ -280,46 +276,41 @@
           </div>
           <div class="amenities__price__calculation">
             <div class="price__calculation__item">
-              <p>
-                <%= new Intl.NumberFormat('en-US', { style: 'currency',
-                currency: 'INR', minimumFractionDigits: 2
-                }).format(data.room.price * 82) %> x
-                <span class="calculation__item__selected__nights"></span> nights
-              </p>
-              <p>
-                <%= new Intl.NumberFormat('en-US', { style: 'currency',
-                currency: 'INR', minimumFractionDigits: 2
-                }).format(data.room.price * 82) %>
-              </p>
-            </div>
-            <% if(data.room.cleaning_fee) {%>
-            <div class="price__calculation__item">
-              <p>Cleaning fee</p>
-              <p>
+              <div class="price__calculation__item__left">
+                <p class="per__night">USD<%= data.room.price %></p>
+                x<span class="calculation__item__selected__nights"></span>
+                nights
+              </div>
+              <p class="total__amount">
                 <%= new Intl.NumberFormat('en-US', { style: 'currency',
                 currency: 'INR', minimumFractionDigits: 2
                 }).format(data.room.cleaning_fee * 82) %>
               </p>
+            </div>
+            <% if(data.room.cleaning_fee) {%>
+            <div class="price__calculation__item">
+              <p>
+                Cleaning fee (
+
+                <span class="cleaning__fee__text"
+                  ><%=data.room.cleaning_fee %></span
+                >
+                USD)
+              </p>
+
+              <p class="cleaning__fee__value"></p>
             </div>
             <% } %>
           </div>
           <% if(data.room.cleaning_fee) {%>
           <div class="amenities__tax">
             <p class="text_bold">Total before taxes</p>
-            <p>
-              <%= new Intl.NumberFormat('en-US', { style: 'currency', currency:
-              'INR', minimumFractionDigits: 2 }).format((Number(data.room.price)
-              +Number( data.room.cleaning_fee)) * 82) %>
-            </p>
+            <p class="tax__amount"></p>
           </div>
           <% } else {%>
           <div class="amenities__tax">
             <p class="text_bold">Total before taxes</p>
-            <p>
-              <%= new Intl.NumberFormat('en-US', { style: 'currency', currency:
-              'INR', minimumFractionDigits: 2 }).format((Number(data.room.price)
-              ) * 82) %>
-            </p>
+            <p class="tax__amount"></p>
           </div>
           <% } %>
         </div>
@@ -385,7 +376,8 @@
         </div>
         <!-- room actual reviews -->
         <div class="room__actual--reviews">
-          <% for(i = 0; i < 6; i++) {%>
+          <% let noOfReviews = data.room?.reviews.length; if(noOfReviews > 6)
+          {noOfReviews = 6} %> <% for(let i = 0; i < noOfReviews; i++) {%>
           <div class="review__actual">
             <div class="review__user">
               <p class="text_bold">
@@ -429,7 +421,9 @@
             </p>
             <p><%= data.room.host.host_about %></p>
           </div>
-          <% if(data.room.review_scores?.review_scores_rating){ %>
+          <% if(data.room.review_scores?.review_scores_rating &&
+          data.room.host.host_response_rate &&
+          data.room.host.host_response_time){ %>
           <div class="hosted__by--right">
             <p>Response Rate: <%=data.room.host.host_response_rate %>%</p>
             <p>Response Time: <%= data.room.host.host_response_time %></p>
