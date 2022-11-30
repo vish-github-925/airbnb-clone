@@ -36,6 +36,7 @@ searchHeader.addEventListener("click", (e) => {
 
 // open or close the authentication field card
 headerAuth.addEventListener("click", (e) => {
+  document.documentElement.scrollTop = 0;
   e.stopPropagation();
   if (headerAuthOptions.classList.contains("auth--closed")) {
     headerAuthOptions.classList.remove("auth--closed");

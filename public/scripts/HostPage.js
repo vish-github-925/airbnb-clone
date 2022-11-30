@@ -20,6 +20,7 @@ const loginToSignupBtn = document.querySelector(".login__to-signup__btn");
 closeModal.addEventListener("click", closeLoginSignupModal);
 
 headerAuth.addEventListener("click", (e) => {
+  document.documentElement.scrollTop = 0;
   e.stopPropagation();
   if (headerAuthOptions.classList.contains("auth--closed")) {
     headerAuthOptions.classList.remove("auth--closed");
